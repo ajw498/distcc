@@ -1,0 +1,45 @@
+RISC OS port of distcc
+~~~~~~~~~~~~~~~~~~~~~~
+
+distcc is a program to distribute builds of C, C++, Objective C or
+Objective C++ code across several machines on a network. distcc should
+always generate the same results as a local build, is simple to install
+and use, and is usually much faster than a local compile.
+
+This is a port of the distcc client. While it would be possible to port
+the server, this would have limited benfit. The intended use is to speed
+up compilation of programs where the build system must run on RISC OS,
+but the actual compilation can be done by the GCCSDK cross compiler on
+another, faster, machine. The speedup achieved varies depending on the
+code complexity and optimisation levels used. C++ benefits more than C.
+distcc cannot be used with the Norcroft compiler.
+
+Dependencies:
+GCCSDK on the server machine.
+GCC on the client.
+!UnixHome
+
+To use, set up the server machine as described on
+http://distcc.samba.org. The only difference needed is to ensure that
+when running the distccd, the gccsdk cross compiler is found in $PATH
+before the native compiler, so distccd will find the correct compiler.
+On the RISC OS client machine, the hostname of the server must be
+specifed, either in the file !UnixHome.home./distcc.hosts or in the
+system variable UnixEnv$DISTCC_HOSTS. Note that it is not recommeded to
+put localhost in this list as it would be for other platforms. Then,
+simply prefix the command line when calling the compiler to include
+distcc, e.g. distcc gcc -c foo.c -o foo.o
+
+Known problems
+~~~~~~~~~~~~~~
+Throwback doesn't work for things that are compiled on the remote host.
+
+While this port should in theory cope with running in parallel sending
+different jobs to different hosts, this would normally be achieved by
+useing make -j. On all current RISC OS ports of make, the -j option will
+not actually run things in parallel, and so no benefit is gained by
+using the -j option. Because of this, specifying more than one remote
+host to use will not give any speed benefit.
+
+Any future updates to the port should be available from
+http://www.alexwaugh.com

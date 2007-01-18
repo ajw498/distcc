@@ -1,0 +1,4 @@
+Set Alias$distcc /<Obey$Dir>.distcc %%*0
+Set UnixEnv$DISTCC_TCP_CORK 0
+
+Iconsprites <Obey$Dir>.!Sprites
