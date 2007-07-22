@@ -13,13 +13,15 @@ open(OUT,">RiscPkg/Control");
 
 print OUT qq{Package: distcc
 Priority: Optional
-Section: Programming
+Section: Development
 Maintainer: Alex Waugh <alex\@alexwaugh.com>
 Standards-Version: 0.1.0
 Version: $version
 Licence: Free
 Depends: UnixLib (>=4.0-3)
-Description: distcc is a program to distribute builds of C or C++ code across several machines on a network. distcc should always generate the same results as a local build, and is usually much faster than a local compile.
+Description: distcc is a program to distribute builds of C or C++ code across
+ several machines on a network. distcc should always generate the same results
+ as a local build, and is usually much faster than a local compile.
 };
 
 
@@ -37,7 +39,7 @@ while (<BOOT>) {
     my $val = $2;
     $var =~ s/\$/=24/;
     $var =~ s/\@/=64/;
-    $val =~ s/\<Obey\$Dir\>/\<Packages\$\@Apps.Programming.!distcc\>/;
+    $val =~ s/\<Obey\$Dir\>/\<Packages\$\@Apps.Development.!distcc\>/;
     $val =~ s/\%%/%/;
     open(VAR, ">SysVars/$var") or die;
     print VAR $val;

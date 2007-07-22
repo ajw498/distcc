@@ -3,8 +3,8 @@
 #
 
 all:
-	mkdir -p Apps/Programming
-	cp -r ../!distcc Apps/Programming
+	mkdir -p Apps/Development
+	cp -r ../!distcc Apps/Development
 	perl CreatePackage
 	zip -r -9 -I ^.distcc-pkg/zip Apps RiscPkg Sprites SysVars -x */svn*
 
